@@ -1,7 +1,7 @@
 ﻿using SnackService.Api.Model;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System;
 
 namespace SnackService.Api.Service.Interface
 {
