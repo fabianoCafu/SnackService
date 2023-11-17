@@ -187,13 +187,6 @@ namespace SnackService.Api.Context
             modelBuilder.Entity<Customer>()
                 .ToTable("Clientes");
 
-            //modelBuilder.Entity<Customer>() 
-            //    .Property(x => x.Id)
-            //    .HasConversion(
-            //        v => v.ToString(),
-            //        v => Guid.Parse(v)) 
-            //    .HasColumnName("Id");
-            
             modelBuilder.Entity<Customer>()
                 .HasKey(c => c.Id);
             
@@ -206,8 +199,9 @@ namespace SnackService.Api.Context
 
             modelBuilder.Entity<Customer>()
                 .Property(c => c.Cpf)
+                .IsUnicode()
                 .HasColumnType("varchar")
-                .HasMaxLength(11)
+                .HasMaxLength(11) 
                 .IsRequired();
 
             modelBuilder.Entity<Customer>()
@@ -285,12 +279,6 @@ namespace SnackService.Api.Context
                 .Property(c => c.CustomerId)
                 .HasColumnName("ClienteId")
                 .HasColumnType("uniqueidentifier");
-
-            //modelBuilder.Entity<Ordered>()
-            //    .HasOne(o => o.Customer)
-            //    .WithMany(o => o.Id)
-            //    .HasForeignKey(o => o.CustomerId)
-            //    .HasConstraintName("FK_ClientePedidos");
 
             modelBuilder.Entity<Ordered>()
                 .HasOne(o => o.Deliveryman)

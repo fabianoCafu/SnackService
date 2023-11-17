@@ -3,7 +3,6 @@ using SnackService.Api.Integracao.Interface;
 using SnackService.Api.Util;
 using System;
 using System.Collections.Generic;
-using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -54,7 +53,7 @@ namespace SnackService.Api.Integracao.NovaPasta
             string address,
             CancellationToken cancellationToken)
         {
-            var response = await _httpClient.GetAsync(SearchUrlViaCep(stateInitials,city,address), cancellationToken)
+            var response = await _httpClient.GetAsync(SearchUrlViaCep(stateInitials, city, address), cancellationToken)
                                             .ConfigureAwait(false);
 
             response.EnsureSuccessStatusCode();
@@ -66,7 +65,7 @@ namespace SnackService.Api.Integracao.NovaPasta
 
         private static string SearchUrlViaCep(string zipCode)
         {
-            return $"/ws/{zipCode}/json";
+            return $"/ws/{zipCode.Trim()}/json";
         }
 
         private static string SearchUrlViaCep(
@@ -74,7 +73,7 @@ namespace SnackService.Api.Integracao.NovaPasta
             string city,
             string address)
         {
-            return $"/ws/{stateInitials}/{city}/{address}/json";
+            return $"/ws/{stateInitials.Trim()}/{city.Trim()}/{address.Trim()}/json";
         }
     }
 }
