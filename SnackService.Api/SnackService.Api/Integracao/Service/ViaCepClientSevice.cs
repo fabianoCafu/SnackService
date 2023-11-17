@@ -3,6 +3,7 @@ using SnackService.Api.Integracao.Interface;
 using SnackService.Api.Util;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -17,7 +18,7 @@ namespace SnackService.Api.Integracao.NovaPasta
         public ViaCepClientSevice(IOptions<AppSettings> appSettings)
         {
             _httpClient = HttpClientFactory.Create();
-            _httpClient.BaseAddress = new Uri(appSettings.Value.BaseUrl);
+            _httpClient.BaseAddress = new Uri(appSettings.Value.BaseUrlViaCep);
         }
 
         public ViaCepResponse Search(string zipCode)
@@ -37,7 +38,7 @@ namespace SnackService.Api.Integracao.NovaPasta
             string zipCode,
             CancellationToken cancellationToken)
         {
-            var response = await _httpClient.GetAsync($"/ws/{zipCode}/json", cancellationToken)
+            var response = await _httpClient.GetAsync(SearchUrlViaCep(zipCode), cancellationToken)
                                             .ConfigureAwait(false);
 
             response.EnsureSuccessStatusCode();
@@ -53,7 +54,7 @@ namespace SnackService.Api.Integracao.NovaPasta
             string address,
             CancellationToken cancellationToken)
         {
-            var response = await _httpClient.GetAsync($"/ws/{stateInitials}/{city}/{address}/json", cancellationToken)
+            var response = await _httpClient.GetAsync(SearchUrlViaCep(stateInitials,city,address), cancellationToken)
                                             .ConfigureAwait(false);
 
             response.EnsureSuccessStatusCode();
@@ -61,6 +62,19 @@ namespace SnackService.Api.Integracao.NovaPasta
             return await response.Content
                                  .ReadAsAsync<List<ViaCepResponse>>(cancellationToken)
                                  .ConfigureAwait(false);
+        }
+
+        private static string SearchUrlViaCep(string zipCode)
+        {
+            return $"/ws/{zipCode}/json";
+        }
+
+        private static string SearchUrlViaCep(
+            string stateInitials,
+            string city,
+            string address)
+        {
+            return $"/ws/{stateInitials}/{city}/{address}/json";
         }
     }
 }
