@@ -7,11 +7,11 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using SnackService.Api.Context;
 using SnackService.Api.Extensions;
-using SnackService.Api.Integracao;
 using SnackService.Api.Integracao.Interface;
 using SnackService.Api.Integracao.NovaPasta;
 using SnackService.Api.Service;
 using SnackService.Api.Service.Interface;
+using SnackService.Api.Util;
 
 namespace SnackService.Api
 {

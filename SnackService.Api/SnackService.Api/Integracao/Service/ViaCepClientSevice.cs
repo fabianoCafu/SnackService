@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
 using SnackService.Api.Integracao.Interface;
+using SnackService.Api.Util;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;

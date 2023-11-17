@@ -1,4 +1,4 @@
-﻿namespace SnackService.Api.Integracao
+﻿namespace SnackService.Api.Util
 {
     public class AppSettings
     {

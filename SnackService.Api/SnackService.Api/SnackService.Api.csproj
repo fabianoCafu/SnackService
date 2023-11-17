@@ -5,13 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Util\**" />
-    <Content Remove="Util\**" />
-    <EmbeddedResource Remove="Util\**" />
-    <None Remove="Util\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Remove="Controllers\WeatherForecastController.cs" />
   </ItemGroup>
 
