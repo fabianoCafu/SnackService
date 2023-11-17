@@ -34,7 +34,7 @@ namespace SnackService.Api.Context
                     Number = 6548,
                     Neighborhood = "Água Verde",
                     City = "Blumenau",
-                    Sex = CustomerSex.Feminine,
+                    Sex = (char) CustomerSex.Feminine,
                     DateOfBirth = DateTime.Now
                 },
                 new Customer
@@ -48,7 +48,7 @@ namespace SnackService.Api.Context
                     Number = 562,
                     Neighborhood = "Universidade",
                     City = "Macapá",
-                    Sex = CustomerSex.Masculine,
+                    Sex = (char)CustomerSex.Masculine,
                     DateOfBirth = DateTime.Now
                 },
                 new Customer
@@ -62,7 +62,7 @@ namespace SnackService.Api.Context
                     Number = 62,
                     Neighborhood = "Cidade Industrial",
                     City = "Curitiba",
-                    Sex = CustomerSex.Masculine,
+                    Sex = (char)CustomerSex.Masculine,
                     DateOfBirth = DateTime.Now
                 },
                 new Customer
@@ -76,7 +76,7 @@ namespace SnackService.Api.Context
                     Number = 77,
                     Neighborhood = "Novo Maranguape I",
                     City = "Maranguape",
-                    Sex = CustomerSex.Feminine,
+                    Sex = (char)CustomerSex.Feminine,
                     DateOfBirth = DateTime.Now
                 },
                 new Customer
@@ -90,7 +90,7 @@ namespace SnackService.Api.Context
                     Number = 3021,
                     Neighborhood = "Uberaba",
                     City = "Curitiba",
-                    Sex = CustomerSex.Masculine,
+                    Sex = (char)CustomerSex.Masculine,
                     DateOfBirth = DateTime.Now
                 },
                 new Customer
@@ -104,7 +104,7 @@ namespace SnackService.Api.Context
                     Number = 56,
                     Neighborhood = "Centro",
                     City = "Imperatriz",
-                    Sex = CustomerSex.Masculine,
+                    Sex = (char)CustomerSex.Masculine,
                     DateOfBirth = DateTime.Now
                 },
                 new Customer
@@ -118,7 +118,7 @@ namespace SnackService.Api.Context
                     Number = 623,
                     Neighborhood = "Bela Parnamirim",
                     City = "Parnamirim",
-                    Sex = CustomerSex.Masculine,
+                    Sex = (char)CustomerSex.Masculine,
                     DateOfBirth = DateTime.Now
                 },
                 new Customer
@@ -132,23 +132,23 @@ namespace SnackService.Api.Context
                     Number = 352,
                     Neighborhood = "São José",
                     City = "Parnaíba",
-                    Sex = CustomerSex.Feminine,
+                    Sex = (char)CustomerSex.Feminine,
                     DateOfBirth = DateTime.Now
                 },
 
                 new Customer
                 {
-                     Id = Guid.NewGuid(),
-                     Name = "Isabel Borba da Silva",
-                     Cpf = "72241909009",
-                     Telephone = "51933353621",
-                     ZipCode = "87080180",
-                     Address = "Rua do Comércio",
-                     Number = 77,
-                     Neighborhood = "Zona 06",
-                     City = "Maringá",
-                     Sex = CustomerSex.Feminine,
-                     DateOfBirth = DateTime.Now
+                    Id = Guid.NewGuid(),
+                    Name = "Isabel Borba da Silva",
+                    Cpf = "72241909009",
+                    Telephone = "51933353621",
+                    ZipCode = "87080180",
+                    Address = "Rua do Comércio",
+                    Number = 77,
+                    Neighborhood = "Zona 06",
+                    City = "Maringá",
+                    Sex = (char)CustomerSex.Feminine,
+                    DateOfBirth = DateTime.Now
                 },
                 new Customer
                 {
@@ -161,7 +161,7 @@ namespace SnackService.Api.Context
                     Number = 127,
                     Neighborhood = "Jardins",
                     City = "Aracaju",
-                    Sex = CustomerSex.Masculine,
+                    Sex = (char)CustomerSex.Masculine,
                     DateOfBirth = DateTime.Now
                 }
             );
@@ -255,7 +255,7 @@ namespace SnackService.Api.Context
                 .Property(c => c.Sex)
                 .HasColumnName("Sexo")
                 .HasColumnType("char")
-                .IsRequired(false);
+                .IsRequired();
 
             modelBuilder.Entity<Customer>()
                 .Property(c => c.DateOfBirth)

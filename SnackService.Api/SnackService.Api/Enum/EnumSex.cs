@@ -1,4 +1,5 @@
-﻿namespace SnackService.Api.Enum
+﻿
+namespace SnackService.Api.Enum
 {
     public enum CustomerSex
     {

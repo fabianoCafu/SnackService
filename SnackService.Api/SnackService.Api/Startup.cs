@@ -7,6 +7,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using SnackService.Api.Context;
 using SnackService.Api.Extensions;
+using SnackService.Api.Integracao;
+using SnackService.Api.Integracao.Interface;
+using SnackService.Api.Integracao.NovaPasta;
 using SnackService.Api.Service;
 using SnackService.Api.Service.Interface;
 
@@ -34,6 +37,9 @@ namespace SnackService.Api
             });
 
             services.AddGlobalExceptionHandlerMiddleware();
+
+            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
+            services.AddScoped<IViaCepClient, ViaCepClientSevice>();
 
             services.AddScoped<ICustomerService, CustomerService>();
             //services.AddScoped<IOrderedService, OrderedService>();

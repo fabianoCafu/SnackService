@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using SnackService.Api.Integracao.Interface;
+using SnackService.Api.Integracao;
 
 namespace SnackService.Api.Controllers
 {
@@ -12,9 +14,13 @@ namespace SnackService.Api.Controllers
     public class CustomerController : ControllerBase
     {
         private readonly ICustomerService _customer;
+        private readonly IViaCepClient _viaCep;
 
-        public CustomerController(ICustomerService customer)
+        public CustomerController(
+            ICustomerService customer,
+            IViaCepClient viaCep)
         {
+            _viaCep = viaCep;
             _customer = customer;
         }
 
@@ -79,6 +85,13 @@ namespace SnackService.Api.Controllers
         {
             var customer = await _customer.GetCustomer(id);
             return Ok(customer);
+        }
+
+        [HttpGet("GetCustomerAddress")]
+        public ActionResult<ViaCepResponse> GetCustomerAddress(string codeZip)
+        {
+            var viaCep = _viaCep.Search(codeZip);
+            return Ok(viaCep);
         }
     }
 }

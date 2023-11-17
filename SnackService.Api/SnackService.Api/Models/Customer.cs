@@ -14,7 +14,7 @@ namespace SnackService.Api.Model
         public string Neighborhood { get; set; }
         public string City { get; set; }
         public string ZipCode { get; set; } 
-        public CustomerSex Sex { get; set; }
+        public char Sex { get; set; }
         public DateTime DateOfBirth { get; set; }
     }
 }
