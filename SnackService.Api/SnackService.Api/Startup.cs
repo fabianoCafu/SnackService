@@ -1,3 +1,4 @@
+using ApiSnackService.Service.Interface;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +12,8 @@ using SnackService.Api.Integracao.Interface;
 using SnackService.Api.Integracao.NovaPasta;
 using SnackService.Api.Service;
 using SnackService.Api.Service.Interface;
+using SnackService.Api.Services;
+using SnackService.Api.Services.interfaces;
 using SnackService.Api.Util;
 
 namespace SnackService.Api
@@ -44,6 +47,8 @@ namespace SnackService.Api
             services.AddScoped<ICustomerService, CustomerService>();
             //services.AddScoped<IOrderedService, OrderedService>();
             //services.AddScoped<IDeliverymanService, DeliverymanService>();
+
+            services.AddScoped<IAdditionalService, AdditionalService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

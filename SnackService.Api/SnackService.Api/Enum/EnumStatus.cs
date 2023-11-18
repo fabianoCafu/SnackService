@@ -1,6 +1,6 @@
 ﻿namespace SnackService.Api.Enum
 {
-    public enum TipoStatus
+    public enum EnumStatus
     {
         // Em Preparacao
         InPreparation = 1,
@@ -14,3 +14,4 @@
         OrderCancelled = 5
     }
 }
+

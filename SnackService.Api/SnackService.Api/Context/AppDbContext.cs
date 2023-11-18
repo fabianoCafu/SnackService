@@ -1,8 +1,8 @@
-﻿using SnackService.Api.Model;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Reflection.Metadata;
+﻿using Microsoft.EntityFrameworkCore;
 using SnackService.Api.Enum;
+using SnackService.Api.Model;
+using SnackService.Api.Models;
+using System;
 
 namespace SnackService.Api.Context
 {
@@ -13,12 +13,17 @@ namespace SnackService.Api.Context
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Deliveryman> Deliverymans { get; set; }
         public DbSet<Ordered> Ordereds { get; set; }
+        public DbSet<Additional> Additionals { get; set; }
+        public DbSet<Category> Categorys { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             CustomersTableConfiguration(modelBuilder);
             DeliverymansTableConfiguration(modelBuilder);
             OrderedsTableConfiguration(modelBuilder);
+            AdditionalsTableCpnfiguration(modelBuilder);
+            CategorysTableConfiguration(modelBuilder);
 
             #region Inserção Clientes
 
@@ -34,7 +39,7 @@ namespace SnackService.Api.Context
                     Number = 6548,
                     Neighborhood = "Água Verde",
                     City = "Blumenau",
-                    Sex = (char) CustomerSex.Feminine,
+                    Sex = (char)EnumSex.Feminine,
                     DateOfBirth = DateTime.Now
                 },
                 new Customer
@@ -48,7 +53,7 @@ namespace SnackService.Api.Context
                     Number = 562,
                     Neighborhood = "Universidade",
                     City = "Macapá",
-                    Sex = (char)CustomerSex.Masculine,
+                    Sex = (char)EnumSex.Masculine,
                     DateOfBirth = DateTime.Now
                 },
                 new Customer
@@ -62,7 +67,7 @@ namespace SnackService.Api.Context
                     Number = 62,
                     Neighborhood = "Cidade Industrial",
                     City = "Curitiba",
-                    Sex = (char)CustomerSex.Masculine,
+                    Sex = (char)EnumSex.Masculine,
                     DateOfBirth = DateTime.Now
                 },
                 new Customer
@@ -76,7 +81,7 @@ namespace SnackService.Api.Context
                     Number = 77,
                     Neighborhood = "Novo Maranguape I",
                     City = "Maranguape",
-                    Sex = (char)CustomerSex.Feminine,
+                    Sex = (char)EnumSex.Feminine,
                     DateOfBirth = DateTime.Now
                 },
                 new Customer
@@ -90,7 +95,7 @@ namespace SnackService.Api.Context
                     Number = 3021,
                     Neighborhood = "Uberaba",
                     City = "Curitiba",
-                    Sex = (char)CustomerSex.Masculine,
+                    Sex = (char)EnumSex.Masculine,
                     DateOfBirth = DateTime.Now
                 },
                 new Customer
@@ -104,7 +109,7 @@ namespace SnackService.Api.Context
                     Number = 56,
                     Neighborhood = "Centro",
                     City = "Imperatriz",
-                    Sex = (char)CustomerSex.Masculine,
+                    Sex = (char)EnumSex.Masculine,
                     DateOfBirth = DateTime.Now
                 },
                 new Customer
@@ -118,7 +123,7 @@ namespace SnackService.Api.Context
                     Number = 623,
                     Neighborhood = "Bela Parnamirim",
                     City = "Parnamirim",
-                    Sex = (char)CustomerSex.Masculine,
+                    Sex = (char)EnumSex.Masculine,
                     DateOfBirth = DateTime.Now
                 },
                 new Customer
@@ -132,7 +137,7 @@ namespace SnackService.Api.Context
                     Number = 352,
                     Neighborhood = "São José",
                     City = "Parnaíba",
-                    Sex = (char)CustomerSex.Feminine,
+                    Sex = (char)EnumSex.Feminine,
                     DateOfBirth = DateTime.Now
                 },
 
@@ -147,7 +152,7 @@ namespace SnackService.Api.Context
                     Number = 77,
                     Neighborhood = "Zona 06",
                     City = "Maringá",
-                    Sex = (char)CustomerSex.Feminine,
+                    Sex = (char)EnumSex.Feminine,
                     DateOfBirth = DateTime.Now
                 },
                 new Customer
@@ -161,7 +166,7 @@ namespace SnackService.Api.Context
                     Number = 127,
                     Neighborhood = "Jardins",
                     City = "Aracaju",
-                    Sex = (char)CustomerSex.Masculine,
+                    Sex = (char)EnumSex.Masculine,
                     DateOfBirth = DateTime.Now
                 }
             );
@@ -180,6 +185,72 @@ namespace SnackService.Api.Context
             //    {
 
             //    });
+
+            //modelBuilder.Entity<Ordered>().HasData(
+            //    new Ordered
+            //    {
+
+            //    });
+
+            modelBuilder.Entity<Category>().HasData(
+                new Category
+                {
+                    Id = Guid.NewGuid(),
+                    Description = "Pratos",
+                    Observation = string.Empty,
+                    Status = (int)EnumCategory.Active
+
+                },
+                new Category
+                {
+                    Id = Guid.NewGuid(),
+                    Description = "Promoção do Dia",
+                    Observation = string.Empty,
+                    Status = (int)EnumCategory.Active
+                },
+                new Category
+                {
+                    Id = Guid.NewGuid(),
+                    Description = "Açaís",
+                    Observation = string.Empty,
+                    Status = (int)EnumCategory.Active
+                },
+                new Category
+                {
+                    Id = Guid.NewGuid(),
+                    Description = "Petiscos",
+                    Observation = string.Empty,
+                    Status = (int)EnumCategory.Active
+                },
+                new Category
+                {
+                    Id = Guid.NewGuid(),
+                    Description = "Xis",
+                    Observation = string.Empty,
+                    Status = (int)EnumCategory.Active
+                },
+                new Category
+                {
+                    Id = Guid.NewGuid(),
+                    Description = "Pastéis",
+                    Observation = string.Empty,
+                    Status = (int)EnumCategory.Active
+                },
+                new Category
+                {
+                    Id = Guid.NewGuid(),
+                    Description = "Pizzas",
+                    Observation = string.Empty,
+                    Status = (int)EnumCategory.Active
+                },
+                new Category
+                {
+                    Id = Guid.NewGuid(),
+                    Description = "Bebidas",
+                    Observation = "Não trabalhanos com Coca-Cola Light",
+                    Status = (int)EnumCategory.Active
+                }
+            );
         }
 
         private static void CustomersTableConfiguration(ModelBuilder modelBuilder)
@@ -189,7 +260,7 @@ namespace SnackService.Api.Context
 
             modelBuilder.Entity<Customer>()
                 .HasKey(c => c.Id);
-            
+
             modelBuilder.Entity<Customer>()
                 .Property(c => c.Name)
                 .HasColumnName("Nome")
@@ -201,7 +272,7 @@ namespace SnackService.Api.Context
                 .Property(c => c.Cpf)
                 .IsUnicode()
                 .HasColumnType("varchar")
-                .HasMaxLength(11) 
+                .HasMaxLength(11)
                 .IsRequired();
 
             modelBuilder.Entity<Customer>()
@@ -276,37 +347,93 @@ namespace SnackService.Api.Context
                 .HasKey(o => o.Id);
 
             modelBuilder.Entity<Ordered>()
-                .Property(c => c.CustomerId)
-                .HasColumnName("ClienteId")
-                .HasColumnType("uniqueidentifier");
+                .HasOne(o => o.Customer)
+                .WithMany(o => o.Ordered)
+                .HasForeignKey(o => o.CategoryId)
+                .HasConstraintName("FK_ClientePedidos");
+
+            modelBuilder.Entity<Ordered>()
+               .HasOne(o => o.Category)
+               .WithMany(o => o.Ordered)
+               .HasForeignKey(o => o.CategoryId)
+               .HasConstraintName("FK_CategoriaPedidos");
 
             modelBuilder.Entity<Ordered>()
                 .HasOne(o => o.Deliveryman)
                 .WithMany(o => o.Ordered)
                 .HasForeignKey(o => o.DeliverymanId)
-                .HasConstraintName("FK_ClienteEntregadores");
+                .HasConstraintName("FK_PedidoEntregadores");
 
             modelBuilder.Entity<Ordered>()
-                .Property(c => c.Date)
-                .HasColumnName("DataPedido")
+                .Property(c => c.DateHour)
+                .HasColumnName("DataHora")
                 .HasColumnType("Datetime2");
 
-            modelBuilder.Entity<Ordered>()
-                .Property(c => c.Hour)
-                .HasColumnName("HoraPedido")
-                .HasColumnType("Datetime2");
+            //modelBuilder.Entity<Ordered>()
+            //    .Property(c => c.Hour)
+            //    .HasColumnName("Hora")
+            //    .HasColumnType("Datetime2");
 
             modelBuilder.Entity<Ordered>()
                 .Property(c => c.Description)
-                .HasColumnName("DescricaoPedido")
+                .HasColumnName("Descricao")
                 .HasColumnType("text")
                 .IsRequired();
 
             modelBuilder.Entity<Ordered>()
-                .Property(c => c.StatusType)
-                .HasColumnName("StatusPedido")
+                .Property(c => c.Status)
+                .HasColumnName("Status")
                 .HasColumnType("int")
                 .IsRequired();
         }
+
+        private static void CategorysTableConfiguration(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Category>()
+                .ToTable("Categorias");
+
+            modelBuilder.Entity<Category>()
+                .HasKey(c => c.Id);
+
+            modelBuilder.Entity<Category>()
+              .Property(c => c.Description)
+              .HasColumnName("Descricao")
+              .HasColumnType("text");
+
+            modelBuilder.Entity<Category>()
+               .Property(c => c.Status)
+               .HasColumnName("Status")
+               .HasColumnType("int")
+               .IsRequired();
+        }
+
+        private static void AdditionalsTableCpnfiguration(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Additional>()
+                        .ToTable("Adicionais");
+
+            modelBuilder.Entity<Additional>()
+                        .HasKey(c => c.Id);
+
+            modelBuilder.Entity<Additional>()
+                        .HasOne(o => o.Category)
+                        .WithMany(o => o.Additional)
+                        .HasForeignKey(o => o.CategoryId)
+                        .HasConstraintName("FK_AdicionaisCategorias");
+
+            modelBuilder.Entity<Additional>()
+                        .Property(c => c.Description)
+                        .HasColumnName("Descricao")
+                        .HasColumnType("varchar")
+                        .HasMaxLength(80)
+                        .IsRequired();
+
+            modelBuilder.Entity<Additional>()
+                        .Property(c => c.Status)
+                        .HasColumnName("Ativo")
+                        .HasColumnType("int")
+                        .IsRequired();
+        }
     }
 }
+

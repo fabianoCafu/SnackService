@@ -55,7 +55,7 @@ namespace SnackService.Api.Integracao.NovaPasta
         {
             var response = await _httpClient.GetAsync(SearchUrlViaCep(stateInitials, city, address), cancellationToken)
                                             .ConfigureAwait(false);
-
+            
             response.EnsureSuccessStatusCode();
 
             return await response.Content

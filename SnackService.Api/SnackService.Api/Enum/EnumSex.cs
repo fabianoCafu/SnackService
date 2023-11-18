@@ -1,7 +1,7 @@
 ﻿
 namespace SnackService.Api.Enum
 {
-    public enum CustomerSex
+    public enum EnumSex
     {
         Masculine = 'M',
         Feminine = 'F'
