@@ -1,6 +1,5 @@
-﻿using SnackService.Api.Model;
+﻿using System;
 using System.Collections.Generic;
-using System;
 
 namespace SnackService.Api.Models
 {
@@ -10,8 +9,7 @@ namespace SnackService.Api.Models
         public string Description { get; set; }
         public int Status { get; set; }
         public string Observation { get; set; }
-        public IEnumerable<Additional> Additional { get; set; } 
-        public IEnumerable<Ordered> Ordered { get; set; }
+        public IEnumerable<Input> Input { get; set; }
     }
 }
 

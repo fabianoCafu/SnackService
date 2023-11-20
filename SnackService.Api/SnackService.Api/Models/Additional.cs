@@ -1,14 +1,14 @@
-﻿using SnackService.Api.Models;
-using System;
+﻿//using SnackService.Api.Models;
+//using System;
+//using System.Collections.Generic;
 
-namespace SnackService.Api.Model
-{
-    public class Additional
-    {
-        public Guid Id { get; set; }
-        public Guid CategoryId { get; set; }
-        public string Description { get; set; }
-        public int Status  { get; set; }
-        public virtual Category Category { get; set; }
-    }
-}
+//namespace SnackService.Api.Model
+//{
+//    public class Additional
+//    {
+//        public Guid Id { get; set; }
+//        public Guid InputId { get; set; }
+//        public int Amount { get; set; }
+//        public virtual Input Inputs { get; set; }
+//    }
+//}

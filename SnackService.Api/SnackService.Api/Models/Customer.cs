@@ -17,5 +17,10 @@ namespace SnackService.Api.Model
         public char Sex { get; set; }
         public DateTime DateOfBirth { get; set; }
         public IEnumerable<Ordered> Ordered { get; set; }
+
+        public Customer()
+        {
+            this.Ordered = new HashSet<Ordered>();
+        }
     }
 }

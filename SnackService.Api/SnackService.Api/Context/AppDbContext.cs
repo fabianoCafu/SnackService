@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
+using Newtonsoft.Json.Linq;
 using SnackService.Api.Enum;
 using SnackService.Api.Model;
 using SnackService.Api.Models;
@@ -13,7 +15,9 @@ namespace SnackService.Api.Context
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Deliveryman> Deliverymans { get; set; }
         public DbSet<Ordered> Ordereds { get; set; }
-        public DbSet<Additional> Additionals { get; set; }
+
+        //public DbSet<Additional> Additionals { get; set; }
+        //public DbSet<Input> OrderAdditional { get; set; }
         public DbSet<Category> Categorys { get; set; }
 
 
@@ -22,8 +26,12 @@ namespace SnackService.Api.Context
             CustomersTableConfiguration(modelBuilder);
             DeliverymansTableConfiguration(modelBuilder);
             OrderedsTableConfiguration(modelBuilder);
-            AdditionalsTableCpnfiguration(modelBuilder);
+
+            //AdditionalsTableCpnfiguration(modelBuilder);
+            //CategorysTableConfiguration(modelBuilder);
+
             CategorysTableConfiguration(modelBuilder);
+            InputsTableConfiguration(modelBuilder);
 
             #region Inserção Clientes
 
@@ -140,7 +148,6 @@ namespace SnackService.Api.Context
                     Sex = (char)EnumSex.Feminine,
                     DateOfBirth = DateTime.Now
                 },
-
                 new Customer
                 {
                     Id = Guid.NewGuid(),
@@ -171,14 +178,56 @@ namespace SnackService.Api.Context
                 }
             );
 
-            #endregion
+            modelBuilder.Entity<Deliveryman>().HasData(
+                new Deliveryman
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Renato Borges do Santos",
+                    Telephone = "51986541236",
+                    Cpf = "84481330058",
+                    Status = 1
+                },
+                new Deliveryman
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Eduardo Gonsalves da Silva",
+                    Telephone = "51986532104",
+                    Cpf = "18087267079",
+                    Status = 1
+                },
+                new Deliveryman
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Marcelo Guimarãoes da Rosa",
+                    Telephone = "51994530126",
+                    Cpf = "99026185022",
+                    Status = 1
+                },
+                new Deliveryman
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Luiz da Silva Pereira do Santos",
+                    Telephone = "5198632541",
+                    Cpf = "32578255016",
+                    Status = 1
+                },
+                new Deliveryman
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Jaqueline da Rocha Martins",
+                    Telephone = "51986532541",
+                    Cpf = "51442876034",
+                    Status = 1
+                }
+            );
 
-
-            //modelBuilder.Entity<Deliveryman>().HasData(
-            //    new Deliveryman
+            //modelBuilder.Entity<OrderAdditional>().HasData(
+            //    new OrderAdditional
             //    {
 
-            //    });
+            //    }
+            //);
+
 
             //modelBuilder.Entity<Ordered>().HasData(
             //    new Ordered
@@ -186,8 +235,8 @@ namespace SnackService.Api.Context
 
             //    });
 
-            //modelBuilder.Entity<Ordered>().HasData(
-            //    new Ordered
+            //modelBuilder.Entity<Additiona>().HasData(
+            //    new Additiona
             //    {
 
             //    });
@@ -196,244 +245,431 @@ namespace SnackService.Api.Context
                 new Category
                 {
                     Id = Guid.NewGuid(),
-                    Description = "Pratos",
+                    Description = "Alaminutas",
                     Observation = string.Empty,
-                    Status = (int)EnumCategory.Active
+                    Status = (int)EnumStatus.Active
 
                 },
                 new Category
                 {
                     Id = Guid.NewGuid(),
-                    Description = "Promoção do Dia",
+                    Description = "Destaques de Ofertas",
                     Observation = string.Empty,
-                    Status = (int)EnumCategory.Active
-                },
+                    Status = (int)EnumStatus.Active
+                }, 
                 new Category
                 {
                     Id = Guid.NewGuid(),
-                    Description = "Açaís",
+                    Description = "Promoção de Pizzas",
                     Observation = string.Empty,
-                    Status = (int)EnumCategory.Active
-                },
-                new Category
-                {
-                    Id = Guid.NewGuid(),
-                    Description = "Petiscos",
-                    Observation = string.Empty,
-                    Status = (int)EnumCategory.Active
+                    Status = (int)EnumStatus.Active
                 },
                 new Category
                 {
                     Id = Guid.NewGuid(),
                     Description = "Xis",
                     Observation = string.Empty,
-                    Status = (int)EnumCategory.Active
+                    Status = (int)EnumStatus.Active
+                },
+                new Category
+                {
+                    Id = Guid.NewGuid(),
+                    Description = "Dog",
+                    Observation = string.Empty,
+                    Status = (int)EnumStatus.Active
                 },
                 new Category
                 {
                     Id = Guid.NewGuid(),
                     Description = "Pastéis",
                     Observation = string.Empty,
-                    Status = (int)EnumCategory.Active
+                    Status = (int)EnumStatus.Active
                 },
                 new Category
                 {
                     Id = Guid.NewGuid(),
-                    Description = "Pizzas",
+                    Description = "Açaís",
                     Observation = string.Empty,
-                    Status = (int)EnumCategory.Active
+                    Status = (int)EnumStatus.Active
                 },
                 new Category
                 {
                     Id = Guid.NewGuid(),
                     Description = "Bebidas",
                     Observation = "Não trabalhanos com Coca-Cola Light",
-                    Status = (int)EnumCategory.Active
+                    Status = (int)EnumStatus.Active
                 }
             );
+
+            modelBuilder.Entity<Input>().HasData(
+                new Input
+                {
+                    Id = Guid.NewGuid(),
+                    CategoryId = Guid.NewGuid(), //Guid.Parse("8EF11760-CAFE-468F-9102-13D295150DE6"),
+                    Description = "Salada",
+                    Status = (int)EnumStatus.Active,
+                    Observation = string.Empty
+                },
+                new Input
+                {
+                    Id = Guid.NewGuid(),
+                    CategoryId = Guid.NewGuid(), //Guid.Parse("8EF11760-CAFE-468F-9102-13D295150DE6"),
+                    Description = "Bife de Gado",
+                    Status = (int)EnumStatus.Active,
+                    Observation = string.Empty
+                },
+                new Input
+                {
+                    Id = Guid.NewGuid(),
+                    CategoryId = Guid.NewGuid(), //Guid.Parse("8EF11760-CAFE-468F-9102-13D295150DE6"),
+                    Description = "Bife de Frango",
+                    Status = (int)EnumStatus.Active,
+                    Observation = string.Empty
+                },
+                new Input
+                {
+                    Id = Guid.NewGuid(),
+                    CategoryId = Guid.NewGuid(), //Guid.Parse("8EF11760-CAFE-468F-9102-13D295150DE6"),
+                    Description = "Filé de Peixe",
+                    Status = (int)EnumStatus.Active,
+                    Observation = string.Empty
+                },
+                new Input
+                {
+                    Id = Guid.NewGuid(),
+                    CategoryId = Guid.NewGuid(), //Guid.Parse("8EF11760-CAFE-468F-9102-13D295150DE6"),
+                    Description = "Chuleta gado Acebolada",
+                    Status = (int)EnumStatus.Active,
+                    Observation = string.Empty
+                },
+                new Input
+                {
+                    Id = Guid.NewGuid(),
+                    CategoryId = Guid.NewGuid(), //Guid.Parse("8EF11760-CAFE-468F-9102-13D295150DE6"),
+                    Description = "Chuleta de gado",
+                    Status = (int)EnumStatus.Active,
+                    Observation = string.Empty
+                },
+                new Input
+                {
+                    Id = Guid.NewGuid(),
+                    CategoryId = Guid.NewGuid(), //Guid.Parse("8EF11760-CAFE-468F-9102-13D295150DE6"),
+                    Description = "Bife á parmediana",
+                    Status = (int)EnumStatus.Active,
+                    Observation = string.Empty
+                },
+                new Input
+                {
+                    Id = Guid.NewGuid(),
+                    CategoryId = Guid.NewGuid(),//Guid.Parse("8EF11760-CAFE-468F-9102-13D295150DE6"),
+                    Description = "Porção de Arroz",
+                    Status = (int)EnumStatus.Active,
+                    Observation = string.Empty
+                },
+                new Input
+                {
+                    Id = Guid.NewGuid(),
+                    CategoryId = Guid.NewGuid(), //Guid.Parse("8EF11760-CAFE-468F-9102-13D295150DE6"),
+                    Description = "Porção de Feijão",
+                    Status = (int)EnumStatus.Active,
+                    Observation = string.Empty
+                },
+                new Input
+                {
+                    Id = Guid.NewGuid(),
+                    CategoryId = Guid.NewGuid(), //Guid.Parse("8EF11760-CAFE-468F-9102-13D295150DE6"),
+                    Description = "Porção de Massa",
+                    Status = (int)EnumStatus.Active,
+                    Observation = string.Empty
+                }
+            );
+
+            #endregion
         }
 
         private static void CustomersTableConfiguration(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Customer>()
-                .ToTable("Clientes");
+                        .ToTable("Clientes");
 
             modelBuilder.Entity<Customer>()
-                .HasKey(c => c.Id);
+                        .HasKey(c => c.Id);
 
             modelBuilder.Entity<Customer>()
-                .Property(c => c.Name)
-                .HasColumnName("Nome")
-                .HasColumnType("varchar")
-                .HasMaxLength(80)
-                .IsRequired();
+                        .Property(c => c.Name)
+                        .HasColumnName("Nome")
+                        .HasColumnType("varchar")
+                        .HasMaxLength(80)
+                        .IsRequired();
 
             modelBuilder.Entity<Customer>()
-                .Property(c => c.Cpf)
-                .IsUnicode()
-                .HasColumnType("varchar")
-                .HasMaxLength(11)
-                .IsRequired();
+                        .Property(c => c.Cpf)
+                        .IsUnicode()
+                        .HasColumnType("varchar")
+                        .HasMaxLength(11)
+                        .IsRequired();
 
             modelBuilder.Entity<Customer>()
-                .Property(c => c.Telephone)
-                .HasColumnName("Telefone")
-                .HasColumnType("varchar")
-                .HasMaxLength(14)
-                .IsRequired();
+                        .Property(c => c.Telephone)
+                        .HasColumnName("Telefone")
+                        .HasColumnType("varchar")
+                        .HasMaxLength(14)
+                        .IsRequired();
 
             modelBuilder.Entity<Customer>()
-                .Property(c => c.Address)
-                .HasColumnName("Endereco")
-                .HasColumnType("varchar")
-                .HasMaxLength(100)
-                .IsRequired();
+                        .Property(c => c.Address)
+                        .HasColumnName("Endereco")
+                        .HasColumnType("varchar")
+                        .HasMaxLength(100)
+                        .IsRequired();
 
             modelBuilder.Entity<Customer>()
-                .Property(c => c.Number)
-                .HasColumnName("Numero")
-                .HasColumnType("int")
-                .IsRequired();
+                        .Property(c => c.Number)
+                        .HasColumnName("Numero")
+                        .HasColumnType("int")
+                        .IsRequired();
 
             modelBuilder.Entity<Customer>()
-                .Property(c => c.Neighborhood)
-                .HasColumnName("Bairro")
-                .HasColumnType("varchar")
-                .HasMaxLength(80)
-                .IsRequired();
+                        .Property(c => c.Neighborhood)
+                        .HasColumnName("Bairro")
+                        .HasColumnType("varchar")
+                        .HasMaxLength(80)
+                        .IsRequired();
 
             modelBuilder.Entity<Customer>()
-                .Property(c => c.City)
-                .HasColumnName("Cidade")
-                .HasColumnType("varchar")
-                .HasMaxLength(80)
-               .IsRequired();
+                        .Property(c => c.City)
+                        .HasColumnName("Cidade")
+                        .HasColumnType("varchar")
+                        .HasMaxLength(80)
+                        .IsRequired();
 
             modelBuilder.Entity<Customer>()
-                .Property(c => c.ZipCode)
-                .HasColumnName("Cep")
-                .HasColumnType("varchar")
-                .HasMaxLength(10)
-                .IsRequired();
+                        .Property(c => c.ZipCode)
+                        .HasColumnName("Cep")
+                        .HasColumnType("varchar")
+                        .HasMaxLength(10)
+                        .IsRequired();
 
             modelBuilder.Entity<Customer>()
-                .Property(c => c.Sex)
-                .HasColumnName("Sexo")
-                .HasColumnType("char")
-                .IsRequired();
+                        .Property(c => c.Sex)
+                        .HasColumnName("Sexo")
+                        .HasColumnType("char")
+                        .IsRequired();
 
             modelBuilder.Entity<Customer>()
-                .Property(c => c.DateOfBirth)
-                .HasColumnName("DataDeNascimento")
-                .HasColumnType("Date");
+                        .Property(c => c.DateOfBirth)
+                        .HasColumnName("DataDeNascimento")
+                        .HasColumnType("DateTime2");
         }
 
         private static void DeliverymansTableConfiguration(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Deliveryman>()
-                .ToTable("Entregadores");
+                        .ToTable("Entregadores");
 
             modelBuilder.Entity<Deliveryman>()
-                .HasKey(c => c.Id);
+                        .HasKey(c => c.Id);
+
+            modelBuilder.Entity<Deliveryman>()
+                        .Property(c => c.Name)
+                        .HasColumnName("Nome")
+                        .HasColumnType("varchar")
+                        .HasMaxLength(80)
+                        .IsRequired();
+
+            modelBuilder.Entity<Deliveryman>()
+                        .Property(c => c.Telephone)
+                        .HasColumnName("Telefone")
+                        .HasColumnType("varchar")
+                        .HasMaxLength(14)
+                        .IsRequired();
+
+            modelBuilder.Entity<Deliveryman>()
+                        .Property(c => c.Cpf)
+                        .IsUnicode()
+                        .HasColumnType("varchar")
+                        .HasMaxLength(11)
+                        .IsRequired();
+
+            modelBuilder.Entity<Deliveryman>()
+                        .Property(c => c.Status)
+                        .HasColumnName("Status")
+                        .HasColumnType("int")
+                        .IsRequired();
 
         }
 
         private static void OrderedsTableConfiguration(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Ordered>()
-                .ToTable("Pedidos");
+                        .ToTable("Pedidos");
 
             modelBuilder.Entity<Ordered>()
-                .HasKey(o => o.Id);
+                        .HasKey(o => o.Id);
 
             modelBuilder.Entity<Ordered>()
-                .HasOne(o => o.Customer)
-                .WithMany(o => o.Ordered)
-                .HasForeignKey(o => o.CategoryId)
-                .HasConstraintName("FK_ClientePedidos");
+                        .HasOne(o => o.Customer)
+                        .WithMany(o => o.Ordered)
+                        .HasForeignKey(o => o.CustomerId)
+                        .IsRequired();
+            
+            modelBuilder.Entity<Ordered>()
+                        .HasOne(o => o.Deliveryman)
+                        .WithMany(o => o.Ordered)
+                        .HasForeignKey(o => o.DeliverymanId)
+                        .IsRequired(false);
 
             modelBuilder.Entity<Ordered>()
-               .HasOne(o => o.Category)
-               .WithMany(o => o.Ordered)
-               .HasForeignKey(o => o.CategoryId)
-               .HasConstraintName("FK_CategoriaPedidos");
+                        .Property(c => c.DateHour)
+                        .HasColumnName("DataHora")
+                        .HasColumnType("Datetime");
 
             modelBuilder.Entity<Ordered>()
-                .HasOne(o => o.Deliveryman)
-                .WithMany(o => o.Ordered)
-                .HasForeignKey(o => o.DeliverymanId)
-                .HasConstraintName("FK_PedidoEntregadores");
+                        .Property(c => c.Description)
+                        .HasColumnName("Descricao")
+                        .HasColumnType("text")
+                        .IsRequired();
 
             modelBuilder.Entity<Ordered>()
-                .Property(c => c.DateHour)
-                .HasColumnName("DataHora")
-                .HasColumnType("Datetime2");
-
-            //modelBuilder.Entity<Ordered>()
-            //    .Property(c => c.Hour)
-            //    .HasColumnName("Hora")
-            //    .HasColumnType("Datetime2");
+                       .Property(c => c.Status)
+                       .HasColumnName("Status")
+                       .HasColumnType("int")
+                       .IsRequired();
 
             modelBuilder.Entity<Ordered>()
-                .Property(c => c.Description)
-                .HasColumnName("Descricao")
-                .HasColumnType("text")
-                .IsRequired();
-
-            modelBuilder.Entity<Ordered>()
-                .Property(c => c.Status)
-                .HasColumnName("Status")
-                .HasColumnType("int")
-                .IsRequired();
+                        .Property(c => c.Observation)
+                        .HasColumnName("Observacao")
+                        .HasColumnType("text")
+                        .IsRequired();
         }
 
         private static void CategorysTableConfiguration(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Category>()
-                .ToTable("Categorias");
+                        .ToTable("Categorias");
 
             modelBuilder.Entity<Category>()
-                .HasKey(c => c.Id);
-
-            modelBuilder.Entity<Category>()
-              .Property(c => c.Description)
-              .HasColumnName("Descricao")
-              .HasColumnType("text");
-
-            modelBuilder.Entity<Category>()
-               .Property(c => c.Status)
-               .HasColumnName("Status")
-               .HasColumnType("int")
-               .IsRequired();
-        }
-
-        private static void AdditionalsTableCpnfiguration(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Additional>()
-                        .ToTable("Adicionais");
-
-            modelBuilder.Entity<Additional>()
                         .HasKey(c => c.Id);
 
-            modelBuilder.Entity<Additional>()
-                        .HasOne(o => o.Category)
-                        .WithMany(o => o.Additional)
-                        .HasForeignKey(o => o.CategoryId)
-                        .HasConstraintName("FK_AdicionaisCategorias");
-
-            modelBuilder.Entity<Additional>()
+            modelBuilder.Entity<Category>()
                         .Property(c => c.Description)
                         .HasColumnName("Descricao")
-                        .HasColumnType("varchar")
-                        .HasMaxLength(80)
-                        .IsRequired();
+                        .HasColumnType("text");
 
-            modelBuilder.Entity<Additional>()
+            modelBuilder.Entity<Category>()
                         .Property(c => c.Status)
-                        .HasColumnName("Ativo")
+                        .HasColumnName("Status")
                         .HasColumnType("int")
                         .IsRequired();
+
+            modelBuilder.Entity<Category>()
+                      .Property(c => c.Observation)
+                      .HasColumnName("Observacao")
+                      .HasColumnType("text")
+                      .IsRequired(false);
+
         }
+
+
+
+
+        private static void InputsTableConfiguration(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Input>()
+                        .ToTable("Insumos");
+
+            modelBuilder.Entity<Input>()
+                        .HasKey(c => c.Id);
+
+            modelBuilder.Entity<Input>()
+                        .HasOne(o => o.Category)
+                        .WithMany(o => o.Input)
+                        .HasForeignKey(o => o.CategoryId)
+                        .IsRequired();
+
+            modelBuilder.Entity<Input>()
+                        .Property(c => c.Description)
+                        .HasColumnName("Descricao")
+                        .HasColumnType("text");
+
+            modelBuilder.Entity<Input>()
+                        .Property(c => c.Status)
+                        .HasColumnName("Status")
+                        .HasColumnType("int")
+                        .IsRequired();
+
+            modelBuilder.Entity<Input>()
+                        .Property(c => c.Observation)
+                        .HasColumnName("Observacao")
+                        .HasColumnType("text")
+                        .IsRequired(false);
+        }
+
+
+
+
+        //private static void AdditionalsTableConfiguration(ModelBuilder modelBuilder)
+        //{
+        //    modelBuilder.Entity<Additional>()
+        //                .ToTable("Adicionais");
+
+        //    modelBuilder.Entity<Additional>()
+        //                .HasKey(c => c.Id);
+
+        //    //modelBuilder.Entity<Additional>()
+        //    //           .HasOne(o => o.Category)
+        //    //           .WithMany(o => o.)
+        //    //           .HasForeignKey(o => o.CategoryId)
+        //    //           .HasConstraintName("FK_CategoriaAdicional");
+
+        //    modelBuilder.Entity<Additional>()
+        //                .Property(c => c.Description)
+        //                .HasColumnName("Descricao")
+        //                .HasColumnType("varchar")
+        //                .HasMaxLength(80)
+        //                .IsRequired();
+
+        //    modelBuilder.Entity<Additional>()
+        //                .Property(c => c.Status)
+        //                .HasColumnName("Ativo")
+        //                .HasColumnType("int")
+        //                .IsRequired();
+        //}
+
+        //private static void OrderAdditionalTableConfiguration(ModelBuilder modelBuilder)
+        //{
+        //    modelBuilder.Entity<Input>()
+        //                .ToTable("AdicionalPedidos");
+
+        //    modelBuilder.Entity<Input>()
+        //                .HasKey(c => c.Id);
+
+        //    modelBuilder.Entity<Input>()
+        //               .HasOne(o => o.Ordered)
+        //               .WithMany(o => o.OrderAdditionals)
+        //               .HasForeignKey(o => o.OrderedId)
+        //               .HasConstraintName("FK_PedidoAdicional");
+
+        //    //modelBuilder.Entity<OrderAdditional>()
+        //    //           .HasOne(o => o.Additional)
+        //    //           .WithMany(o => o.OrderAdditiona)
+        //    //           .HasForeignKey(o => o.)
+        //    //           .HasConstraintName("FK_AdicionalAdicionalPedido");
+
+        //    modelBuilder.Entity<Input>()
+        //               .Property(c => c.Amount)
+        //               .HasColumnName("Quantidade")
+        //               .HasColumnType("int")
+        //               .IsRequired();
+
+
+        //    /*
+        //     Id 
+        //     OrderedId 
+        //     AdditionalId 
+        //     Amount 
+        //    */
+        //}
     }
 }
 

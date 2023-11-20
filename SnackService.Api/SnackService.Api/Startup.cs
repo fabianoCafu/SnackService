@@ -27,7 +27,6 @@ namespace SnackService.Api
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<AppDbContext>(options =>
@@ -42,16 +41,15 @@ namespace SnackService.Api
             services.AddGlobalExceptionHandlerMiddleware();
 
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
+
             services.AddScoped<IViaCepClient, ViaCepClientSevice>();
-
             services.AddScoped<ICustomerService, CustomerService>();
-            //services.AddScoped<IOrderedService, OrderedService>();
-            //services.AddScoped<IDeliverymanService, DeliverymanService>();
 
-            services.AddScoped<IAdditionalService, AdditionalService>();
+            services.AddScoped<IOrderedService, OrderedService>();
+            services.AddScoped<IDeliverymanService, DeliverymanService>();
+            //services.AddScoped<IAdditionalService, AdditionalService>();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(
             IApplicationBuilder app,
             IWebHostEnvironment env)
