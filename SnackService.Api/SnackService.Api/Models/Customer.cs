@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SnackService.Api.Enum;
+using System;
 using System.Collections.Generic;
 
 namespace SnackService.Api.Model
@@ -14,7 +15,7 @@ namespace SnackService.Api.Model
         public string Neighborhood { get; set; }
         public string City { get; set; }
         public string ZipCode { get; set; }
-        public char Sex { get; set; }
+        public EnumSex Sex { get; set; }
         public DateTime DateOfBirth { get; set; }
         public IEnumerable<Ordered> Ordered { get; set; }
 

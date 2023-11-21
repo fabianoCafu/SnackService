@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SnackService.Api.Enum;
+using System;
 using System.Collections.Generic;
 
 namespace SnackService.Api.Models
@@ -8,7 +9,7 @@ namespace SnackService.Api.Models
         public Guid Id { get; set; }
         public Guid CategoryId { get; set; }
         public string Description { get; set; }
-        public int Status { get; set; }
+        public EnumActive Status { get; set; }
         public string Observation { get; set; }
         public virtual Category Category { get; set; }
 

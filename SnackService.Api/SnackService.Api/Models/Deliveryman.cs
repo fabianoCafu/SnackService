@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SnackService.Api.Enum;
+using System;
 using System.Collections.Generic;
 
 namespace SnackService.Api.Model
@@ -9,7 +10,7 @@ namespace SnackService.Api.Model
         public string Name { get; set; }
         public string Telephone { get; set; }
         public string Cpf { get; set; }
-        public int Status { get; set; }
+        public EnumActive Status { get; set; }
 
         public IEnumerable<Ordered> Ordered { get; set; }
 
